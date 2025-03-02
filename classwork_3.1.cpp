@@ -1,5 +1,6 @@
 #include <iostream>
 #include <functional>
+#include "globals.h"
 
 using namespace std;
 
@@ -28,7 +29,13 @@ function<int(int, int)> getOperation(char op)
 
 int findMax(int arr[], int size)
 {
-	int max = INT_MIN;
+	if (size > MAX_ARRAY_SIZE)
+	{
+		cout << "Размер массива превышает допустимый!" << endl;
+		return 0;
+	}
+
+	int max = MIN_VALUE;
 	for (int i = 0; i < size; i++)
 	{
 		max = max < arr[i] ? arr[i] : max;
@@ -57,17 +64,23 @@ auto getPrint(char c) -> void (*)(string)
 	{
 		return printA;
 	}
-	else if
-		(c == '=')
-		{
-			return printB;
-		}
+	else if (c == '=')
+	{
+		return printB;
+	}
 
 	return {};
 }
 
 int main()
 {
+	globalCounter++; // используем глобальную переменную
+	cout << "Значение глобального счетчика: " << globalCounter << endl;
+
+	cout << "Максимально допустимый размер массива: " << MAX_ARRAY_SIZE << endl;
+	cout << "Значение PI: " << PI << endl;
+	cout << "Диапазон допустимых значений: от " << MIN_VALUE << " до " << MAX_VALUE << endl;
+
 	//   auto operation = getOperation('+');
 	//   if (operation != nullptr)
 	//   {
@@ -96,7 +109,6 @@ int main()
 	// print(s);
 	// print = getPrint('=');
 	// print(s);
-
 
 	return 0;
 }
